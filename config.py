@@ -7,7 +7,7 @@ ABBREVIATIONS = [
     "art", "ust", "par", "lit", "syg", "sygn", "ratyf", "ces", "rozp",
     "gm", "urz", "rozdz", "uchw", "wyr", "prok", "pr", "post", "późn",
     "zm", "v", "r", "poz", "dz.u", "rew", "al", "zrzesz", "przeds", "prod",
-    "k.c", "k.k", "k.p.c", "tj", "nr"
+    "k.c", "k.k", "k.p.c", "tj", "nr", "ds", "str"
 ]
 
 

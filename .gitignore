@@ -1,2 +1,7 @@
 **/__pycache__
 **/venv
+**/raport.pdf
+**/*.DS_Store
+**/*.txt
+**/*.spacy
+**/.pdf

@@ -4,7 +4,9 @@ import stanza
 from datasets import load_dataset
 import config  
 from raport import generate_pdf  
-
+import nltk
+nltk.download('punkt')
+nltk.download('punkt_tab')
 def setup_environment():
     print("ładowanie NLTK...")
     try:
@@ -15,7 +17,7 @@ def setup_environment():
     
     print("ładowanie spacy")
     try:
-        #dane z korpusu NKJP i teksty z Wikipedii/Internetu.
+        #dane z korpusu NKJP i teksty z wikipedii/internetu.
         nlp_spacy = spacy.load("pl_core_news_lg")
     except OSError:
         print("błąd spacy")
@@ -59,6 +61,7 @@ def main():
         streaming=True, 
         trust_remote_code=True
     )
+    dataset = dataset.shuffle(buffer_size=10000)
     
     results = []
     
