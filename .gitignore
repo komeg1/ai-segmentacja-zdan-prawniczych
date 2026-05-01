@@ -5,3 +5,5 @@
 **/*.txt
 **/*.spacy
 **/.pdf
+*/downloader/
+**/.github
