@@ -4,9 +4,30 @@ import os
 import time
 import re
 import argparse
+import logging
+import threading
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+# --- LOGGING ---
+logging.basicConfig(
+    filename="download_errors.log",
+    level=logging.ERROR,
+    format="%(asctime)s %(levelname)s %(message)s",
+)
 
 DATA_DIR = "data/acts"
 os.makedirs(DATA_DIR, exist_ok=True)
+
+
+def ts():
+    """Current timestamp string for debug prints."""
+    return datetime.now().strftime("%H:%M:%S.%f")[:-3]
+
+
+def thread_name():
+    """Short thread name for debug prints."""
+    return threading.current_thread().name
 
 
 def get_acts(year):
@@ -16,21 +37,39 @@ def get_acts(year):
         r.raise_for_status()
         return r.json().get("items", [])
     except Exception as e:
+        logging.error(f"Error fetching acts for {year}: {e}")
         print(f"Error fetching acts for {year}: {e}")
         return []
 
 
-def download_pdf(pdf_url, filename):
-    try:
-        r = requests.get(pdf_url, timeout=15)
-        r.raise_for_status()
-        with open(filename, "wb") as f:
-            f.write(r.content)
-        print(f"Downloaded PDF: {filename}")
-        return True
-    except Exception as e:
-        print(f"Error downloading PDF {pdf_url}: {e}")
-        return False
+def download_pdf(pdf_url, filename, retries=3):
+    for attempt in range(retries):
+        try:
+            r = requests.get(pdf_url, timeout=15)
+
+            if r.status_code == 429:
+                wait = int(r.headers.get("Retry-After", 5))
+                print(f"  [{ts()}] [{thread_name()}] Rate limited, waiting {wait}s...")
+                time.sleep(wait)
+                continue
+
+            r.raise_for_status()
+            with open(filename, "wb") as f:
+                f.write(r.content)
+            return True
+
+        except requests.exceptions.ConnectionError:
+            wait = 2**attempt
+            print(
+                f"  [{ts()}] [{thread_name()}] Connection error, retrying in {wait}s... (attempt {attempt+1}/{retries})"
+            )
+            time.sleep(wait)
+        except Exception as e:
+            logging.error(f"Error downloading PDF {pdf_url}: {e}")
+            print(f"  [{ts()}] [{thread_name()}] Error downloading {pdf_url}: {e}")
+            return False
+
+    return False
 
 
 def clean_page_text(text):
@@ -47,15 +86,15 @@ def clean_page_text(text):
     # 3. Remove page numbers (e.g. – 2 –)
     text = re.sub(r"^[–-]\s*\d+\s*[–-]\s*$", "", text, flags=re.MULTILINE)
 
-    # 4. Remove footnotes stuck to words (like 'r.2)' or 'act1)')
-    # but keep legal points like ' 1)' or ' 2)'
+    # 4. Remove footnote markers stuck to words (e.g. 'ustawa2)' -> 'ustawa')
+    # Only after a letter, not after digits (to preserve legal numbering like "pkt 2)")
     text = re.sub(r"(?<=[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\d+\)", "", text)
 
     return text
 
 
 def detect_footnote_cut(page):
-    """Find where the footnotes start on the page"""
+    """Find where the footnotes start on the page."""
 
     # 1. Try to find a horizontal line separator
     for line in page.lines:
@@ -69,14 +108,12 @@ def detect_footnote_cut(page):
     if not words:
         return None
 
-    # Get the average font size for main text
     all_sizes = sorted([w["size"] for w in words])
     if not all_sizes:
         return None
     median_size = all_sizes[len(all_sizes) // 2]
 
     for w in words:
-        # Check if font is small, matches 'digit)' and is at the bottom
         if (
             w["size"] < median_size * 0.85
             and re.match(r"\d+\)", w["text"])
@@ -88,37 +125,33 @@ def detect_footnote_cut(page):
 
 
 def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
-    """Convert PDF to text files based on flags"""
+    """Convert PDF to text files."""
     try:
         clean_pages = []
         raw_pages = []
 
         with pdfplumber.open(pdf_path) as pdf:
             for page in pdf.pages:
-                # Get raw text if requested
                 if save_raw:
                     raw_text = page.extract_text()
                     if raw_text:
                         raw_pages.append(raw_text)
 
-                # Get clean text by cutting off footnotes
                 cut_y = detect_footnote_cut(page)
 
                 if cut_y:
                     target_area = page.crop((0, 0, page.width, cut_y - 2))
                 else:
-                    target_area = page.crop((0, 0, page.width, page.height * 0.96))
+                    target_area = page.crop((0, 0, page.width, page.height * 0.92))
 
                 cleaned = clean_page_text(target_area.extract_text())
                 if cleaned:
                     clean_pages.append(cleaned)
 
-        # Save RAW version only if flag is present
         if save_raw and raw_pages:
             with open(txt_raw_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(raw_pages))
 
-        # Save CLEAN version (always)
         if clean_pages:
             final_clean = "\n".join(clean_pages)
             final_clean = re.sub(r"\n\s*\n+", "\n\n", final_clean).strip()
@@ -128,12 +161,77 @@ def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
         return True
 
     except Exception as e:
-        print(f"Error processing {pdf_path}: {e}")
+        logging.error(f"Error processing {pdf_path}: {e}")
+        print(f"  [{ts()}] [{thread_name()}] Error processing {pdf_path}: {e}")
         return False
 
 
+def process_act(act, year_dir, year, save_raw, keep_pdf, debug=False):
+    """Download and process a single act. Designed to run in a thread."""
+    if not act.get("textPDF"):
+        return None
+
+    pos = act.get("pos")
+    title = re.sub(r'[\\/*?:"<>|]', "", act.get("title", "no_title"))[:40].strip()
+
+    base_name = f"act_{year}_{pos}_{title}"
+    pdf_path = os.path.join(year_dir, f"{base_name}.pdf")
+    txt_clean = os.path.join(year_dir, f"{base_name}_clean.txt")
+    txt_raw = os.path.join(year_dir, f"{base_name}_raw.txt")
+
+    if os.path.exists(txt_clean):
+        if debug:
+            print(f"  [{ts()}] [{thread_name()}] SKIP (exists): {base_name}")
+        return f"  Skipped (exists): {base_name}"
+
+    pdf_url = f"https://api.sejm.gov.pl/eli/acts/DU/{year}/{pos}/text.pdf"
+
+    if debug:
+        print(f"  [{ts()}] [{thread_name()}] START: {base_name}")
+
+    if not download_pdf(pdf_url, pdf_path):
+        return f"  FAILED download: {base_name}"
+
+    success = process_pdf(pdf_path, txt_clean, txt_raw, save_raw=save_raw)
+
+    if not keep_pdf:
+        try:
+            os.remove(pdf_path)
+        except Exception as e:
+            logging.error(f"Could not remove PDF {pdf_path}: {e}")
+
+    if debug:
+        status = "DONE" if success else "FAILED processing"
+        print(f"  [{ts()}] [{thread_name()}] {status}: {base_name}")
+
+    if success:
+        return f"  Done: {base_name}"
+    else:
+        return f"  FAILED processing: {base_name}"
+
+
+def run_thread_test(workers=5):
+    """Quick sanity check that threads actually run in parallel."""
+    print(f"\n--- Thread test (10 tasks x 0.5s sleep, {workers} workers) ---")
+    print(f"    Sequential time would be ~5.0s, parallel should be ~1.0s\n")
+
+    def fake_task(i):
+        print(f"  [{ts()}] [{thread_name()}] START task {i}")
+        time.sleep(0.5)
+        print(f"  [{ts()}] [{thread_name()}] END   task {i}")
+        return i
+
+    t_start = time.time()
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        results = list(executor.map(fake_task, range(10)))
+    elapsed = time.time() - t_start
+
+    print(f"\n  Finished {len(results)} tasks in {elapsed:.2f}s")
+    print(f"  Speedup: {(len(results) * 0.5) / elapsed:.1f}x vs sequential")
+    print("--- Thread test done ---\n")
+
+
 def main():
-    # CLI arguments configuration in English
     parser = argparse.ArgumentParser(
         description="Download and process legal acts from the Polish Sejm API."
     )
@@ -153,49 +251,62 @@ def main():
         action="store_true",
         help="Save the unformatted raw text as a separate '_raw.txt' file.",
     )
+    parser.add_argument(
+        "--workers",
+        type=int,
+        default=5,
+        help="Number of parallel download threads (default: 5).",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print thread names and timestamps for each task.",
+    )
+    parser.add_argument(
+        "--test-threads",
+        action="store_true",
+        help="Run a quick thread parallelism test and exit.",
+    )
 
     args = parser.parse_args()
 
-    # Fallback to default range if no years are specified
+    if args.test_threads:
+        run_thread_test(workers=args.workers)
+        return
+
     years_to_process = args.years if args.years else range(2015, 2026)
 
     for year in years_to_process:
         print(f"\n--- Processing year {year} ---")
         acts = get_acts(year)
 
+        if not acts:
+            print(f"  No acts found for {year}, skipping.")
+            continue
+
         year_dir = os.path.join(DATA_DIR, str(year))
         os.makedirs(year_dir, exist_ok=True)
 
-        for act in acts:
-            if not act.get("textPDF"):
-                continue
+        t_start = time.time()
 
-            pos = act.get("pos")
-            title = re.sub(r'[\\/*?:"<>|]', "", act.get("title", "no_title"))[
-                :40
-            ].strip()
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            futures = {
+                executor.submit(
+                    process_act, act, year_dir, year, args.raw, args.pdf, args.debug
+                ): act
+                for act in acts
+            }
+            for future in as_completed(futures):
+                result = future.result()
+                if result and not args.debug:
+                    print(result)
 
-            base_name = f"act_{year}_{pos}_{title}"
-            pdf_path = os.path.join(year_dir, f"{base_name}.pdf")
-            txt_clean = os.path.join(year_dir, f"{base_name}_clean.txt")
-            txt_raw = os.path.join(year_dir, f"{base_name}_raw.txt")
+        elapsed = time.time() - t_start
+        print(
+            f"  Year {year} done in {elapsed:.1f}s ({len(acts)} acts, {args.workers} workers)"
+        )
 
-            if os.path.exists(txt_clean):
-                continue
-
-            pdf_url = f"https://api.sejm.gov.pl/eli/acts/DU/{year}/{pos}/text.pdf"
-
-            if download_pdf(pdf_url, pdf_path):
-                time.sleep(0.1)
-                if process_pdf(pdf_path, txt_clean, txt_raw, save_raw=args.raw):
-                    print(f"  Done: {base_name}")
-
-                # Delete PDF if the user did not pass the --pdf flag
-                if not args.pdf:
-                    try:
-                        os.remove(pdf_path)
-                    except Exception as e:
-                        print(f"Could not remove PDF {pdf_path}: {e}")
+    print("\nAll done! Check download_errors.log for any errors.")
 
 
 if __name__ == "__main__":
