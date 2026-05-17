@@ -3,7 +3,6 @@ import spacy
 from spacy.tokens import DocBin
 
 def convert_gold_to_spacy():
-    print(">>> Konwertowanie Złotego Standardu do formatu spaCy...")
     nlp = spacy.blank("pl")
     doc_bin = DocBin()
 
