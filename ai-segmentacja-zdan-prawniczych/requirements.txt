@@ -1,4 +1,0 @@
-nltk
-spacy
-stanza
-datasets==2.21.0
