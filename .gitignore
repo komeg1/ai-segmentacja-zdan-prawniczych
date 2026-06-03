@@ -1,0 +1,13 @@
+**/__pycache__
+**/venv
+**/raport.pdf
+**/*.DS_Store
+**/*.txt
+**/*.spacy
+**/.pdf
+*/downloader/
+**/.github
+**/data/acts
+**/data/spacy
+**/spacy_config/
+**/.vscode/
