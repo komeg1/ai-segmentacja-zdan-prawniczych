@@ -1,0 +1,600 @@
+[
+    {
+        "act_id": "act_2021_818",
+        "successfully_aligned_sentences": [
+            {
+                "start_token_trigger": "DZIENNIK",
+                "extracted_span_text": "DZIENNIK USTAW\nRZECZYPOSPOLITEJ POLSKIEJ\nWarszawa, dnia 30 kwietnia 2021 r."
+            },
+            {
+                "start_token_trigger": "ROZPORZĄDZENIE",
+                "extracted_span_text": "ROZPORZĄDZENIE\nRADY MINISTRÓW\nz dnia 27 kwietnia 2021 r.\nw sprawie szczegółowych warunków i sposobu rozpowszechniania audycji popularyzujących narodowy spis\npowszechny ludności i mieszkań w 2021 r."
+            },
+            {
+                "start_token_trigger": "Na",
+                "extracted_span_text": "Na podstawie art. 41 ust. 3 ustawy z dnia 9 sierpnia 2019 r. o narodowym spisie powszechnym ludności i mieszkań\nw 2021 r. (Dz. U. poz. 1775, z 2020 r. poz. 1486 oraz z 2021 r. poz. 6 zarządza się, co następuje:"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 1. Rozporządzenie określa szczegółowe warunki i sposób rozpowszechniania, w terminie od dnia 1 maja 2021 r. do\ndnia zakończenia narodowego spisu powszechnego ludności i mieszkań w 2021 r., audycji informacyjnych, edukacyjnych\ni promocyjnych popularyzujących ten spis powszechny, zwanych dalej „audycjami”, w ramach czasu antenowego, o którym mowa w art. 41 ust. 1 ustawy z dnia 9 sierpnia 2019 r. o narodowym spisie powszechnym ludności i mieszkań\nw 2021 r., z podziałem na miesiące i godziny."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 2. 1. W terminie od dnia 1 maja 2021 r. do dnia zakończenia narodowego spisu powszechnego ludności i mieszkań\nw 2021 r. czas rozpowszechniania audycji w poszczególnych miesiącach wynosi:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) maj 2021 r. – 15 godzin, w tym:"
+            },
+            {
+                "start_token_trigger": "a",
+                "extracted_span_text": "a) 4 godziny w ogólnokrajowych programach telewizyjnych rozpowszechnianych przez Telewizję Polską – Spółkę\nAkcyjną,"
+            },
+            {
+                "start_token_trigger": "b",
+                "extracted_span_text": "b) 6 godzin w regionalnych programach telewizyjnych rozpowszechnianych przez terenowe oddziały Telewizji Polskiej – Spółki Akcyjnej,"
+            },
+            {
+                "start_token_trigger": "c",
+                "extracted_span_text": "c) 2 godziny w ogólnokrajowych programach radiowych rozpowszechnianych przez Polskie Radio – Spółkę Akcyjną,"
+            },
+            {
+                "start_token_trigger": "d",
+                "extracted_span_text": "d) 3 godziny w programach radiowych rozpowszechnianych przez spółki radiofonii regionalnej;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) czerwiec 2021 r. – 13 godzin, w tym:"
+            },
+            {
+                "start_token_trigger": "a",
+                "extracted_span_text": "a) 4 godziny w ogólnokrajowych programach telewizyjnych rozpowszechnianych przez Telewizję Polską – Spółkę\nAkcyjną,"
+            },
+            {
+                "start_token_trigger": "b",
+                "extracted_span_text": "b) 5 godzin w regionalnych programach telewizyjnych rozpowszechnianych przez terenowe oddziały Telewizji Polskiej – Spółki Akcyjnej,"
+            },
+            {
+                "start_token_trigger": "c",
+                "extracted_span_text": "c) 2 godziny w ogólnokrajowych programach radiowych rozpowszechnianych przez Polskie Radio – Spółkę Akcyjną,"
+            },
+            {
+                "start_token_trigger": "d",
+                "extracted_span_text": "d) 2 godziny w programach radiowych rozpowszechnianych przez spółki radiofonii regionalnej;"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) lipiec 2021 r. – 10 godzin, w tym:"
+            },
+            {
+                "start_token_trigger": "a",
+                "extracted_span_text": "a) 3 godziny w ogólnokrajowych programach telewizyjnych rozpowszechnianych przez Telewizję Polską – Spółkę\nAkcyjną,"
+            },
+            {
+                "start_token_trigger": "b",
+                "extracted_span_text": "b) 4 godziny w regionalnych programach telewizyjnych rozpowszechnianych przez terenowe oddziały Telewizji\nPolskiej – Spółki Akcyjnej,"
+            },
+            {
+                "start_token_trigger": "c",
+                "extracted_span_text": "c) 1 godzina w ogólnokrajowych programach radiowych rozpowszechnianych przez Polskie Radio – Spółkę Akcyjną,"
+            },
+            {
+                "start_token_trigger": "d",
+                "extracted_span_text": "d) 2 godziny w programach radiowych rozpowszechnianych przez spółki radiofonii regionalnej;"
+            },
+            {
+                "start_token_trigger": "4",
+                "extracted_span_text": "4) sierpień 2021 r. – 10 godzin, w tym:"
+            },
+            {
+                "start_token_trigger": "a",
+                "extracted_span_text": "a) 3 godziny w ogólnokrajowych programach telewizyjnych rozpowszechnianych przez Telewizję Polską – Spółkę\nAkcyjną,"
+            },
+            {
+                "start_token_trigger": "b",
+                "extracted_span_text": "b) 4 godziny w regionalnych programach telewizyjnych rozpowszechnianych przez terenowe oddziały Telewizji\nPolskiej – Spółki Akcyjnej,"
+            },
+            {
+                "start_token_trigger": "c",
+                "extracted_span_text": "c) 1 godzina w ogólnokrajowych programach radiowych rozpowszechnianych przez Polskie Radio – Spółkę Akcyjną,"
+            },
+            {
+                "start_token_trigger": "d",
+                "extracted_span_text": "d) 2 godziny w programach radiowych rozpowszechnianych przez spółki radiofonii regionalnej;"
+            },
+            {
+                "start_token_trigger": "5",
+                "extracted_span_text": "5) wrzesień 2021 r. – 16 godzin, w tym:"
+            },
+            {
+                "start_token_trigger": "a",
+                "extracted_span_text": "a) 4 godziny w ogólnokrajowych programach telewizyjnych rozpowszechnianych przez Telewizję Polską – Spółkę\nAkcyjną,"
+            },
+            {
+                "start_token_trigger": "b",
+                "extracted_span_text": "b) 6 godzin w regionalnych programach telewizyjnych rozpowszechnianych przez terenowe oddziały Telewizji Polskiej – Spółki Akcyjnej,"
+            },
+            {
+                "start_token_trigger": "c",
+                "extracted_span_text": "c) 2 godziny w ogólnokrajowych programach radiowych rozpowszechnianych przez Polskie Radio – Spółkę Akcyjną,"
+            },
+            {
+                "start_token_trigger": "d",
+                "extracted_span_text": "d) 4 godziny w programach radiowych rozpowszechnianych przez spółki radiofonii regionalnej."
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2. Audycje są rozpowszechniane w godzinach:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) 6.00–23.00 – w przypadku audycji w ogólnokrajowych programach telewizyjnych rozpowszechnianych przez Telewizję Polską – Spółkę Akcyjną i regionalnych programach telewizyjnych rozpowszechnianych przez terenowe oddziały Telewizji Polskiej – Spółki Akcyjnej;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) 6.00–10.00 i 12.00–23.00 – w przypadku audycji w ogólnokrajowych programach radiowych rozpowszechnianych\nprzez Polskie Radio – Spółkę Akcyjną i programach radiowych rozpowszechnianych przez spółki radiofonii regionalnej."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 3. Rozporządzenie wchodzi w życie z dniem 1 maja 2021 r."
+            },
+            {
+                "start_token_trigger": "Prezes",
+                "extracted_span_text": "Prezes Rady Ministrów: M. Morawiecki"
+            }
+        ],
+        "failed_alignments_chars": []
+    },
+    {
+        "act_id": "act_2021_819",
+        "successfully_aligned_sentences": [
+            {
+                "start_token_trigger": "DZIENNIK",
+                "extracted_span_text": "DZIENNIK USTAW\nRZECZYPOSPOLITEJ POLSKIEJ\nWarszawa, dnia 30 kwietnia 2021 r."
+            },
+            {
+                "start_token_trigger": "ROZPORZĄDZENIE",
+                "extracted_span_text": "ROZPORZĄDZENIE\nPREZESA RADY MINISTRÓW\nz dnia 29 kwietnia 2021 r.\nzmieniające rozporządzenie w sprawie przedterminowych wyborów wójta gminy Warlubie\nw województwie kujawsko-pomorskim"
+            },
+            {
+                "start_token_trigger": "Na",
+                "extracted_span_text": "Na podstawie art. 474 § 2 ustawy z dnia 5 stycznia 2011 r. – Kodeks wyborczy (Dz. U. z 2020 r. poz. 1 zarządza\nsię, co następuje:"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 1. W rozporządzeniu Prezesa Rady Ministrów z dnia 6 listopada 2020 r. w sprawie przedterminowych wyborów\nwójta gminy Warlubie w województwie kujawsko-pomorskim (Dz. U. poz. 1971 i 2237 oraz z 2021 r. poz. 125 i 5\nwprowadza się następujące zmiany:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) § 2 otrzymuje brzmienie:\n„§ 2. Datę przedterminowych wyborów wyznacza się na niedzielę 13 czerwca 2021 r.”;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) w załączniku do rozporządzenia wiersze oznaczone lp. 11–14 otrzymują brzmienie:\n11 do dnia 8 czerwca 2021 r. – składanie przez wyborców wniosków o dopisanie ich do spisu wyborców w wybranym obwodzie głosowania na obszarze gminy,\n– zgłaszanie zamiaru głosowania korespondencyjnego przez wyborców podlegających w dniu głosowania obowiązkowej kwarantannie,\nizolacji lub izolacji w warunkach domowych\n12 w dniu 11 czerwca 2021 r. o godz. 24.00 – zakończenie kampanii wyborczej\n13 w dniu 12 czerwca 2021 r. – przekazanie spisów wyborców przewodniczącym obwodowych\nkomisji wyborczych\n14 w dniu 13 czerwca 2021 r. – głosowanie\ngodz. 7.00–21.00"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 2. Wojewoda niezwłocznie po wejściu w życie rozporządzenia podaje do publicznej wiadomości, w formie obwieszczenia, terminy wykonania czynności wyborczych ustalone niniejszym rozporządzeniem."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 3. Rozporządzenie wchodzi w życie z dniem 4 maja 2021 r."
+            },
+            {
+                "start_token_trigger": "Prezes",
+                "extracted_span_text": "Prezes Rady Ministrów: M. Morawiecki"
+            }
+        ],
+        "failed_alignments_chars": []
+    },
+    {
+        "act_id": "act_2021_821",
+        "successfully_aligned_sentences": [
+            {
+                "start_token_trigger": "DZIENNIK",
+                "extracted_span_text": "DZIENNIK USTAW\nRZECZYPOSPOLITEJ POLSKIEJ\nWarszawa, dnia 30 kwietnia 2021 r."
+            },
+            {
+                "start_token_trigger": "ROZPORZĄDZENIE",
+                "extracted_span_text": "ROZPORZĄDZENIE\nPREZESA RADY MINISTRÓW\nz dnia 29 kwietnia 2021 r.\nzmieniające rozporządzenie w sprawie przedterminowych wyborów wójta gminy Świdnica\nw województwie lubuskim"
+            },
+            {
+                "start_token_trigger": "Na",
+                "extracted_span_text": "Na podstawie art. 474 § 2 ustawy z dnia 5 stycznia 2011 r. – Kodeks wyborczy (Dz. U. z 2020 r. poz. 1 zarządza się,\nco następuje:"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 1. W rozporządzeniu Prezesa Rady Ministrów z dnia 23 października 2020 r. w sprawie przedterminowych wyborów\nwójta gminy Świdnica w województwie lubuskim (Dz. U. poz. 1879 i 2236 oraz z 2021 r. poz. 126 i 6 wprowadza się\nnastępujące zmiany:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) § 2 otrzymuje brzmienie:\n„§ 2. Datę przedterminowych wyborów wyznacza się na niedzielę 13 czerwca 2021 r.”;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) w załączniku do rozporządzenia wiersze oznaczone lp. 11–14 otrzymują brzmienie:\n11 do dnia 8 czerwca 2021 r. – składanie przez wyborców wniosków o dopisanie ich do spisu\nwyborców w wybranym obwodzie głosowania na obszarze gminy,\n– zgłaszanie zamiaru głosowania korespondencyjnego przez wyborców podlegających w dniu głosowania obowiązkowej kwarantannie, izolacji lub izolacji w warunkach domowych\n12 w dniu 11 czerwca 2021 r. o godz. 24.00 – zakończenie kampanii wyborczej\n13 w dniu 12 czerwca 2021 r. – przekazanie spisów wyborców przewodniczącym obwodowych\nkomisji wyborczych\n14 w dniu 13 czerwca 2021 r. – głosowanie\ngodz. 7.00–21.00"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 2. Wojewoda niezwłocznie po wejściu w życie rozporządzenia podaje do publicznej wiadomości, w formie obwieszczenia, terminy wykonania czynności wyborczych ustalone niniejszym rozporządzeniem."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 3. Rozporządzenie wchodzi w życie z dniem 4 maja 2021 r."
+            },
+            {
+                "start_token_trigger": "Prezes",
+                "extracted_span_text": "Prezes Rady Ministrów: M. Morawiecki"
+            }
+        ],
+        "failed_alignments_chars": []
+    },
+    {
+        "act_id": "act_2021_822",
+        "successfully_aligned_sentences": [
+            {
+                "start_token_trigger": "DZIENNIK",
+                "extracted_span_text": "DZIENNIK USTAW\nRZECZYPOSPOLITEJ POLSKIEJ\nWarszawa, dnia 30 kwietnia 2021 r."
+            },
+            {
+                "start_token_trigger": "ROZPORZĄDZENIE",
+                "extracted_span_text": "ROZPORZĄDZENIE\nPREZESA RADY MINISTRÓW\nz dnia 29 kwietnia 2021 r.\nzmieniające rozporządzenie w sprawie przedterminowych wyborów wójta gminy Tarnowiec\nw województwie podkarpackim"
+            },
+            {
+                "start_token_trigger": "Na",
+                "extracted_span_text": "Na podstawie art. 474 § 2 ustawy z dnia 5 stycznia 2011 r. – Kodeks wyborczy (Dz. U. z 2020 r. poz. 1 zarządza\nsię, co następuje:"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 1. W rozporządzeniu Prezesa Rady Ministrów z dnia 5 listopada 2020 r. w sprawie przedterminowych wyborów\nwójta gminy Tarnowiec w województwie podkarpackim (Dz. U. poz. 1967 i 2240 oraz z 2021 r. poz. 123 i 6 wprowadza się następujące zmiany:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) § 2 otrzymuje brzmienie:\n„§ 2. Datę przedterminowych wyborów wyznacza się na niedzielę 13 czerwca 2021 r.”;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) w załączniku do rozporządzenia wiersze oznaczone lp. 11–14 otrzymują brzmienie:\n11 do dnia 8 czerwca 2021 r. – składanie przez wyborców wniosków o dopisanie ich do spisu\nwyborców w wybranym obwodzie głosowania na obszarze\ngminy,\n– zgłaszanie zamiaru głosowania korespondencyjnego przez\nwyborców podlegających w dniu głosowania obowiązkowej\nkwarantannie, izolacji lub izolacji w warunkach domowych\n12 w dniu 11 czerwca 2021 r. o godz. 24.00 – zakończenie kampanii wyborczej\n13 w dniu 12 czerwca 2021 r. – przekazanie spisów wyborców przewodniczącym obwodowych\nkomisji wyborczych\n14 w dniu 13 czerwca 2021 r. – głosowanie\ngodz. 7.00–21.00"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 2. Wojewoda niezwłocznie po wejściu w życie rozporządzenia podaje do publicznej wiadomości, w formie obwieszczenia, terminy wykonania czynności wyborczych ustalone niniejszym rozporządzeniem."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 3. Rozporządzenie wchodzi w życie z dniem 4 maja 2021 r."
+            },
+            {
+                "start_token_trigger": "Prezes",
+                "extracted_span_text": "Prezes Rady Ministrów: M. Morawiecki"
+            }
+        ],
+        "failed_alignments_chars": []
+    },
+    {
+        "act_id": "act_2021_824",
+        "successfully_aligned_sentences": [
+            {
+                "start_token_trigger": "DZIENNIK",
+                "extracted_span_text": "DZIENNIK USTAW\nRZECZYPOSPOLITEJ POLSKIEJ\nWarszawa, dnia 30 kwietnia 2021 r."
+            },
+            {
+                "start_token_trigger": "ROZPORZĄDZENIE",
+                "extracted_span_text": "ROZPORZĄDZENIE\nMINISTRA EDUKACJI I NAUKI\nz dnia 29 kwietnia 2021 r.\nw sprawie czasowego ograniczenia funkcjonowania jednostek systemu oświaty w związku z zapobieganiem,\nprzeciwdziałaniem i zwalczaniem COVID-19"
+            },
+            {
+                "start_token_trigger": "Na",
+                "extracted_span_text": "Na podstawie art. 30b ustawy z dnia 14 grudnia 2016 r. – Prawo oświatowe (Dz. U. z 2020 r. poz. 910 i 1378 oraz\nz 2021 r. poz. 4, 619 i 7 zarządza się, co następuje:"
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 1. 1. W roku szkolnym 2020/2021 ogranicza się w całości lub w części funkcjonowanie publicznych i niepublicznych jednostek systemu oświaty, w których odpowiednio wszystkie lub poszczególne zajęcia zostały zawieszone na podstawie przepisów wydanych na podstawie odpowiednio art. 95a ustawy z dnia 7 września 1991 r. o systemie oświaty\n(Dz. U. z 2020 r. poz. 1327 oraz z 2021 r. poz. 4), w brzmieniu obowiązującym przed dniem 1 września 2017 r., art. 32\nust. 11 oraz art. 47 ust. 3 pkt 1 ustawy z dnia 14 grudnia 2016 r. – Prawo oświatowe, w związku z zapobieganiem, przeciwdziałaniem i zwalczaniem COVID-19, z zastrzeżeniem § 2."
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2. Ograniczenie, o którym mowa w ust. 1, wprowadza się na czas, na jaki zostały zawieszone odpowiednio wszystkie\nlub poszczególne zajęcia."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 2. 1. Od dnia 3 maja 2021 r. do dnia 16 maja 2021 r. na obszarze kraju ogranicza się funkcjonowanie publicznych\ni niepublicznych:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych w zakresie klas IV–VIII;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) szkół ponadpodstawowych;"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) placówek kształcenia ustawicznego i centrów kształcenia zawodowego"
+            },
+            {
+                "start_token_trigger": "4",
+                "extracted_span_text": "4) ośrodków rewalidacyjno-wychowawczych;"
+            },
+            {
+                "start_token_trigger": "5",
+                "extracted_span_text": "5) domów wczasów dziecięcych;"
+            },
+            {
+                "start_token_trigger": "6",
+                "extracted_span_text": "6) szkolnych schronisk młodzieżowych."
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2. Ograniczenie funkcjonowania, o którym mowa w ust. 1, nie dotyczy:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych specjalnych oraz szkół ponadpodstawowych specjalnych, funkcjonujących w młodzieżowych\nośrodkach wychowawczych i młodzieżowych ośrodkach socjoterapii;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) internatów;"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) branżowych szkół I stopnia – w odniesieniu do uczniów branżowych szkół I stopnia będących młodocianymi pracownikami w zakresie zajęć praktycznych realizowanych u pracodawców, o ile u pracodawcy nie występują zdarzenia,\nktóre ze względu na aktualną sytuację epidemiologiczną mogą zagrozić zdrowiu młodocianego pracownika."
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3. Od dnia 3 maja 2021 r. do dnia 16 maja 2021 r. w przypadku:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych specjalnych w zakresie klas IV–VIII oraz szkół ponadpodstawowych specjalnych,"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) szkół podstawowych specjalnych w zakresie klas IV–VIII oraz szkół ponadpodstawowych specjalnych, funkcjonujących w specjalnych ośrodkach szkolno-wychowawczych,"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) szkół podstawowych specjalnych w zakresie klas IV–VIII oraz szkół ponadpodstawowych specjalnych, zorganizowanych w podmiotach leczniczych i jednostkach pomocy społecznej\n– zajęcia mogą być prowadzone w szkole; o prowadzeniu zajęć w szkole decyduje dyrektor szkoły."
+            },
+            {
+                "start_token_trigger": "4",
+                "extracted_span_text": "4. Od dnia 3 maja 2021 r. do dnia 16 maja 2021 r. w ośrodkach rewalidacyjno-wychowawczych dopuszcza się możliwość realizacji zajęć, w szczególności zajęć rewalidacyjnych, zajęć rewalidacyjno-wychowawczych oraz zajęć wczesnego wspomagania rozwoju dziecka, za zgodą rodziców dzieci i uczniów posiadających odpowiednio orzeczenie o potrzebie\nkształcenia specjalnego, orzeczenie o potrzebie zajęć rewalidacyjno-wychowawczych lub opinię o potrzebie wczesnego\nwspomagania rozwoju dziecka. Zajęcia mogą być realizowane w bezpośrednim kontakcie dziecka lub ucznia z osobą prowadzącą te zajęcia."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 3. 1. Od dnia 17 maja 2021 r. do dnia 30 maja 2021 r. na obszarze kraju ogranicza się funkcjonowanie publicznych\ni niepublicznych:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych w zakresie klas IV–VIII;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) szkół ponadpodstawowych;"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) placówek kształcenia ustawicznego i centrów kształcenia zawodowego;"
+            },
+            {
+                "start_token_trigger": "4",
+                "extracted_span_text": "4) domów wczasów dziecięcych;"
+            },
+            {
+                "start_token_trigger": "5",
+                "extracted_span_text": "5) szkolnych schronisk młodzieżowych."
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2. Ograniczenie funkcjonowania, o którym mowa w ust. 1, nie dotyczy:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych specjalnych oraz szkół ponadpodstawowych specjalnych, funkcjonujących w młodzieżowych\nośrodkach wychowawczych i młodzieżowych ośrodkach socjoterapii;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) internatów;"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) branżowych szkół I stopnia – w odniesieniu do uczniów branżowych szkół I stopnia będących młodocianymi pracownikami w zakresie zajęć praktycznych realizowanych u pracodawców, o ile u pracodawcy nie występują zdarzenia,\nktóre ze względu na aktualną sytuację epidemiologiczną mogą zagrozić zdrowiu młodocianego pracownika."
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3. Od dnia 17 maja 2021 r. do dnia 30 maja 2021 r. w przypadku:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych specjalnych w zakresie klas IV–VIII oraz szkół ponadpodstawowych specjalnych,"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) szkół podstawowych specjalnych w zakresie klas IV–VIII oraz szkół ponadpodstawowych specjalnych, funkcjonujących\nw specjalnych ośrodkach szkolno-wychowawczych,"
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3) szkół podstawowych specjalnych w zakresie klas IV–VIII oraz szkół ponadpodstawowych specjalnych, zorganizowanych\nw podmiotach leczniczych i jednostkach pomocy społecznej\n– zajęcia mogą być prowadzone w szkole; o prowadzeniu zajęć w szkole decyduje dyrektor szkoły."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 4. 1. W jednostce systemu oświaty, której funkcjonowanie zostało w całości lub w części ograniczone zgodnie z § 1\nust. 1, zawieszone zajęcia są realizowane z wykorzystaniem metod i technik kształcenia na odległość zgodnie z przepisami\nwydanymi na podstawie art. 30c ustawy z dnia 14 grudnia 2016 r. – Prawo oświatowe."
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2. W przypadku gdy zawieszone zajęcia nie mogą być realizowane w sposób, o którym mowa w ust. 1, dyrektor jednostki systemu oświaty ustala inny sposób realizowania tych zajęć."
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3. W przypadku ograniczenia funkcjonowania jednostek systemu oświaty zgodnie z § 2 i § 3, zajęcia są realizowane\nz wykorzystaniem metod i technik kształcenia na odległość zgodnie z przepisami wydanymi na podstawie art. 30c ustawy\nz dnia 14 grudnia 2016 r. – Prawo oświatowe, z wyjątkiem zajęć i praktyk, o których mowa w ust. 5 pkt 1, ust. 8 pkt 1\nlit. a, ust. 10–12, § 2 ust. 3 i 4 oraz § 3 ust. 3."
+            },
+            {
+                "start_token_trigger": "4",
+                "extracted_span_text": "4. W przypadku gdy zajęcia nie mogą być realizowane w sposób, o którym mowa w ust. 3, dyrektor jednostki systemu\noświaty, o której mowa w § 2 lub § 3, ustala inny sposób realizowania tych zajęć."
+            },
+            {
+                "start_token_trigger": "5",
+                "extracted_span_text": "5. Od dnia 17 maja 2021 r. do dnia 30 maja 2021 r. w przypadku szkół podstawowych w zakresie klas IV–VIII, szkół\nponadpodstawowych, placówek kształcenia ustawicznego i centrów kształcenia zawodowego, o których mowa w § 3 ust. 1,\nzajęcia są realizowane w taki sposób, że:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) nie więcej niż 50% uczniów realizuje te zajęcia odpowiednio w szkole, placówce lub centrum oraz"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) co najmniej 50% uczniów realizuje te zajęcia z wykorzystaniem metod i technik kształcenia na odległość, o których\nmowa w ust. 3, lub w inny sposób, o którym mowa w ust. 4\n– chyba że nastąpiło ograniczenie zgodnie z § 1 ust. 1."
+            },
+            {
+                "start_token_trigger": "6",
+                "extracted_span_text": "6. Dyrektor szkoły, placówki lub centrum, o których mowa w ust. 5, ustala harmonogram prowadzenia zajęć zgodnie\nz podziałem, o którym mowa w ust. 5, biorąc pod uwagę, w miarę możliwości, równomierne i naprzemienne realizowanie\ntych zajęć przez każdego ucznia zarówno w sposób określony w ust. 5 pkt 1, jak i w sposób określony w ust. 5 pkt 2."
+            },
+            {
+                "start_token_trigger": "7",
+                "extracted_span_text": "7. Przepisów ust. 5 i 6 nie stosuje się do zajęć z zakresu praktycznej nauki zawodu, o których mowa w ust. 10–12."
+            },
+            {
+                "start_token_trigger": "8",
+                "extracted_span_text": "8. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. w przypadku uczniów klas IV–VIII szkół podstawowych oraz\nszkół ponadpodstawowych, o których mowa w § 2 ust. 1 lub § 3 ust. 1, którzy z uwagi na:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) rodzaj niepełnosprawności nie mogą realizować zajęć z wykorzystaniem metod i technik kształcenia na odległość,\no których mowa w ust. 3, w miejscu zamieszkania, dyrektor szkoły ma obowiązek:"
+            },
+            {
+                "start_token_trigger": "a",
+                "extracted_span_text": "a) zorganizować dla tych uczniów zajęcia w szkole lub"
+            },
+            {
+                "start_token_trigger": "b",
+                "extracted_span_text": "b) umożliwić tym uczniom realizację zajęć z wykorzystaniem metod i technik kształcenia na odległość na terenie\nszkoły;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) brak możliwości realizowania zajęć z wykorzystaniem metod i technik kształcenia na odległość, o których mowa\nw ust. 3, nie mogą realizować tych zajęć w miejscu zamieszkania, dyrektor szkoły może umożliwić tym uczniom realizację zajęć z wykorzystaniem metod i technik kształcenia na odległość na terenie szkoły."
+            },
+            {
+                "start_token_trigger": "9",
+                "extracted_span_text": "9. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. w przypadku:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół podstawowych w zakresie klas IV–VIII: sportowych, mistrzostwa sportowego, z oddziałami sportowymi i oddziałami mistrzostwa sportowego, o których mowa w § 2 ust. 1 pkt 1 i § 3 ust. 1 pkt 1,"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) szkół ponadpodstawowych sportowych, szkół ponadpodstawowych mistrzostwa sportowego, oddziałów sportowych\nw szkołach ponadpodstawowych ogólnodostępnych i oddziałów mistrzostwa sportowego w szkołach ponadpodstawowych ogólnodostępnych, o których mowa w § 2 ust. 1 pkt 2 i § 3 ust. 1 pkt 2\n– zajęcia sportowe realizowane na podstawie programów szkolenia realizuje się w miejscu ich prowadzenia lub z wykorzystaniem metod i technik kształcenia na odległość, o których mowa w ust. 3, wyłącznie w zakresie, w jakim z programu\nszkolenia wynika możliwość ich realizacji z wykorzystaniem tych metod i technik.\n10. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. w przypadku szkół prowadzących kształcenie zawodowe, placówek kształcenia ustawicznego i centrów kształcenia zawodowego dyrektor odpowiednio szkoły, placówki lub centrum\nmoże zorganizować:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) zajęcia praktyczne w miejscu ich prowadzenia, w wybranych dniach tygodnia, w wymiarze nieprzekraczającym\n16 godzin tygodniowo;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) praktyki zawodowe w miejscu ich prowadzenia, o ile w podmiocie, w którym są realizowane te praktyki, nie występują\nzdarzenia, które ze względu na aktualną sytuację epidemiologiczną mogą zagrozić zdrowiu uczniów."
+            },
+            {
+                "start_token_trigger": "11",
+                "extracted_span_text": "11. Zajęcia, o których mowa w ust. 10 pkt 1, mogą być prowadzone również u pracodawców lub w indywidualnych\ngospodarstwach rolnych, o ile w podmiotach tych nie występują zdarzenia, które ze względu na aktualną sytuację epidemiologiczną mogą zagrozić zdrowiu uczniów."
+            },
+            {
+                "start_token_trigger": "12",
+                "extracted_span_text": "12. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. w przypadku szkół kształcących w zawodzie technik pożarnictwa\nprowadzonych przez ministra właściwego do spraw wewnętrznych zajęcia z zakresu praktycznej nauki zawodu mogą być\nrealizowane w miejscu ich prowadzenia, o ile w podmiocie przyjmującym uczniów na te zajęcia nie występują zdarzenia,\nktóre ze względu na aktualną sytuację epidemiologiczną mogą zagrozić zdrowiu uczniów."
+            },
+            {
+                "start_token_trigger": "13",
+                "extracted_span_text": "13. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r.:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) sposób realizacji zadań jednostki systemu oświaty innych niż realizacja zajęć ustala dyrektor tej jednostki;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) o sposobie realizacji zajęć i innych zadań jednostki systemu oświaty dyrektor tej jednostki informuje organ prowadzący tę jednostkę oraz organ sprawujący nadzór pedagogiczny."
+            },
+            {
+                "start_token_trigger": "14",
+                "extracted_span_text": "14. Od dnia 3 maja 2021 r. do dnia 24 maja 2021 r. w klasie VIII szkoły podstawowej dyrektor szkoły może zapewnić w szkole konsultacje indywidualne lub grupowe z nauczycielem prowadzącym zajęcia edukacyjne z przedmiotów,\nz których uczeń przystępuje do egzaminu ósmoklasisty."
+            },
+            {
+                "start_token_trigger": "15",
+                "extracted_span_text": "15. Dyrektor szkoły, centrum lub placówki, o których mowa w § 1–3, może udostępnić pomieszczenia w szkole, centrum lub placówce w celu przeprowadzenia poszczególnych stopni konkursów, olimpiad lub turniejów, o których mowa\nw przepisach wydanych na podstawie art. 22 ust. 2 pkt 8 ustawy z dnia 7 września 1991 r. o systemie oświaty."
+            },
+            {
+                "start_token_trigger": "16",
+                "extracted_span_text": "16. Dyrektor szkoły lub placówki, o której mowa w § 1–3, może udostępnić pomieszczenia w szkole lub placówce\nw celu przeprowadzenia badań edukacyjnych, których realizacja wynika z krajowych lub międzynarodowych zobowiązań\nministra właściwego do spraw oświaty i wychowania."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 5. 1. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. na obszarze kraju ogranicza się funkcjonowanie publicznych\ni niepublicznych:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) szkół artystycznych realizujących wyłącznie kształcenie artystyczne oraz placówek artystycznych;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) szkół artystycznych realizujących także kształcenie ogólne w zakresie klas IV–VIII szkoły podstawowej lub liceum\nogólnokształcącego."
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2. W przypadku ograniczenia funkcjonowania szkół i placówek artystycznych zgodnie z ust. 1, zajęcia są realizowane\nz wykorzystaniem metod i technik kształcenia na odległość zgodnie z przepisami wydanymi na podstawie art. 30c ustawy\nz dnia 14 grudnia 2016 r. – Prawo oświatowe, z wyjątkiem zajęć, o których mowa w ust. 4 pkt 1."
+            },
+            {
+                "start_token_trigger": "3",
+                "extracted_span_text": "3. W przypadku gdy zajęcia nie mogą być realizowane w sposób, o którym mowa w ust. 2, dyrektor szkoły lub placówki artystycznej, o której mowa w ust. 1, ustala inny sposób realizowania tych zajęć."
+            },
+            {
+                "start_token_trigger": "4",
+                "extracted_span_text": "4. Od dnia 17 maja 2021 r. do dnia 30 maja 2021 r. w przypadku szkół artystycznych realizujących kształcenie ogólne\nw zakresie klas IV–VIII szkoły podstawowej lub liceum ogólnokształcącego zajęcia są realizowane w taki sposób, że:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) nie więcej niż 50% uczniów realizuje te zajęcia w szkole artystycznej realizującej kształcenie ogólne w zakresie szkoły podstawowej lub liceum ogólnokształcącego oraz"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) co najmniej 50% uczniów realizuje te zajęcia z wykorzystaniem metod i technik kształcenia na odległość, o których\nmowa w ust. 2, lub w inny sposób, o którym mowa w ust. 3\n– chyba że nastąpiło ograniczenie zgodnie z § 1 ust. 1."
+            },
+            {
+                "start_token_trigger": "5",
+                "extracted_span_text": "5. Dyrektor szkoły artystycznej, o której mowa w ust. 4, ustala harmonogram prowadzenia zajęć zgodnie z podziałem,\no którym mowa w ust. 4, biorąc pod uwagę, w miarę możliwości, równomierne i naprzemienne realizowanie tych zajęć\nprzez każdego ucznia zarówno w sposób określony w ust. 4 pkt 1, jak i w sposób określony w ust. 4 pkt 2."
+            },
+            {
+                "start_token_trigger": "6",
+                "extracted_span_text": "6. Od dnia 3 maja 2021 r. do dnia 24 maja 2021 r. w szkołach artystycznych realizujących także kształcenie ogólne\nw zakresie klasy VIII szkoły podstawowej dyrektor szkoły może zapewnić konsultacje indywidualne lub grupowe z nauczycielem prowadzącym zajęcia edukacyjne z przedmiotów, z których uczeń przystępuje do egzaminu ósmoklasisty."
+            },
+            {
+                "start_token_trigger": "7",
+                "extracted_span_text": "7. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. w klasach programowo najwyższych szkół artystycznych, w których\njest przeprowadzany egzamin dyplomowy, dyrektor szkoły może zorganizować konsultacje indywidualne lub grupowe\nz nauczycielem prowadzącym zajęcia edukacyjne z przedmiotów, z których uczeń przystępuje do egzaminu dyplomowego."
+            },
+            {
+                "start_token_trigger": "8",
+                "extracted_span_text": "8. Od dnia 3 maja 2021 r. do dnia 30 maja 2021 r. dyrektor szkoły lub placówki artystycznej, o której mowa w ust. 1,\nmoże udostępnić pomieszczenia w szkole lub placówce w celu przeprowadzenia:"
+            },
+            {
+                "start_token_trigger": "1",
+                "extracted_span_text": "1) konkursów, o których mowa w przepisach wydanych na podstawie art. 22 ust. 6 ustawy z dnia 7 września 1991 r.\no systemie oświaty, po uzyskaniu zgody organu sprawującego nadzór pedagogiczny;"
+            },
+            {
+                "start_token_trigger": "2",
+                "extracted_span_text": "2) badań edukacyjnych, których realizacja wynika z krajowych lub międzynarodowych zobowiązań ministra właściwego\ndo spraw oświaty i wychowania."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 6. Turnusy dokształcania teoretycznego młodocianych pracowników, które rozpoczęły się przed dniem 30 maja\n2021 r., mogą być realizowane z wykorzystaniem metod i technik kształcenia na odległość zgodnie z przepisami wydanymi\nna podstawie art. 30c ustawy z dnia 14 grudnia 2016 r. – Prawo oświatowe."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 7. Traci moc rozporządzenie Ministra Edukacji i Nauki z dnia 26 marca 2021 r. w sprawie czasowego ograniczenia\nfunkcjonowania jednostek systemu oświaty w związku z zapobieganiem, przeciwdziałaniem i zwalczaniem COVID-19\n(Dz. U. poz. 561, 651, 701 i 7."
+            },
+            {
+                "start_token_trigger": "§",
+                "extracted_span_text": "§ 8. Rozporządzenie wchodzi w życie z dniem 3 maja 2021 r."
+            },
+            {
+                "start_token_trigger": "Minister",
+                "extracted_span_text": "Minister Edukacji i Nauki: P. Czarnek"
+            }
+        ],
+        "failed_alignments_chars": []
+    }
+]

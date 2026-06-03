@@ -7,7 +7,7 @@ def convert_gold_to_spacy():
     doc_bin = DocBin()
 
     try:
-        with open("gold.json", "r", encoding="utf-8") as f:
+        with open("../gold2.json", "r", encoding="utf-8") as f:
             data = json.load(f)
     except FileNotFoundError:
         print("nie znalezinono gold.json'.")
