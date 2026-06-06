@@ -61,7 +61,8 @@ def download_pdf(pdf_url, filename, retries=3):
         except requests.exceptions.ConnectionError:
             wait = 2**attempt
             print(
-                f"  [{ts()}] [{thread_name()}] Connection error, retrying in {wait}s... (attempt {attempt+1}/{retries})"
+                f"  [{ts()}] [{thread_name()}] Connection error, retrying in {wait}s..."
+                f" (attempt {attempt+1}/{retries})"
             )
             time.sleep(wait)
         except Exception as e:
@@ -72,25 +73,39 @@ def download_pdf(pdf_url, filename, retries=3):
     return False
 
 
-def clean_page_text(text):
-    if not text:
+def extract_text_without_superscripts(page):
+    words = page.extract_words(extra_attrs=["size", "top", "bottom"])
+
+    if not words:
         return ""
 
-    # 1. Join broken words (e.g. "roz- \nporządzenie" -> "rozporządzenie")
-    text = re.sub(r"-\s*\n\s*", "", text)
+    sizes = sorted([w["size"] for w in words])
+    median_size = sizes[len(sizes) // 2]
 
-    # 2. Remove journal headers ("Dziennik Ustaw" and "Poz.")
-    text = re.sub(r"^Dziennik Ustaw.*?\n", "", text, flags=re.MULTILINE)
-    text = re.sub(r"^Poz\.\s*\d+.*?\n", "", text, flags=re.MULTILINE)
+    bottoms = sorted([w["bottom"] for w in words])
+    median_bottom = bottoms[len(bottoms) // 2]
 
-    # 3. Remove page numbers (e.g. – 2 –)
-    text = re.sub(r"^[–-]\s*\d+\s*[–-]\s*$", "", text, flags=re.MULTILINE)
+    lines = []
+    current_line = []
+    prev_bottom = None
 
-    # 4. Remove footnote markers stuck to words (e.g. 'ustawa2)' -> 'ustawa')
-    # Only after a letter, not after digits (to preserve legal numbering like "pkt 2)")
-    text = re.sub(r"(?<=[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\d+\)", "", text)
+    for w in words:
+        is_small = w["size"] < median_size * 0.75
+        is_raised = w["bottom"] < median_bottom - (median_size * 0.3)
+        if is_small and is_raised:
+            continue
 
-    return text
+        if prev_bottom is not None and w["top"] > prev_bottom + median_size * 0.5:
+            lines.append(" ".join(current_line))
+            current_line = []
+
+        current_line.append(w["text"])
+        prev_bottom = w["bottom"]
+
+    if current_line:
+        lines.append(" ".join(current_line))
+
+    return "\n".join(lines)
 
 
 def detect_footnote_cut(page):
@@ -124,6 +139,37 @@ def detect_footnote_cut(page):
     return None
 
 
+def clean_page_text(text):
+    if not text:
+        return ""
+
+    text = re.sub(r"-\s*\n\s*", "", text)
+
+    text = re.sub(
+        r"DZIENNIK USTAW RZECZYPOSPOLITEJ POLSKIEJ\s*"
+        r"Warszawa,\s*dnia\s*\d+\s*\w+\s*\d{4}\s*r\.\s*"
+        r"Poz\.\s*\d+\s*",
+        "",
+        text,
+    )
+
+    text = re.sub(
+        r"Dziennik Ustaw\s*[–-]\s*\d+\s*[–-]\s*Poz\.\s*\d+\s*",
+        "",
+        text,
+    )
+
+    text = re.sub(r"^Dziennik Ustaw\s*Poz\.\s*\d+\s*$", "", text, flags=re.MULTILINE)
+
+    text = re.sub(r"^Poz\.\s*\d+\s*$", "", text, flags=re.MULTILINE)
+
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    text = re.sub(r"[ \t]{2,}", " ", text)
+    text = text.strip()
+
+    return text
+
+
 def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
     """Convert PDF to text files."""
     try:
@@ -144,7 +190,9 @@ def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
                 else:
                     target_area = page.crop((0, 0, page.width, page.height * 0.92))
 
-                cleaned = clean_page_text(target_area.extract_text())
+                raw_clean = extract_text_without_superscripts(target_area)
+                cleaned = clean_page_text(raw_clean)
+
                 if cleaned:
                     clean_pages.append(cleaned)
 
@@ -303,7 +351,8 @@ def main():
 
         elapsed = time.time() - t_start
         print(
-            f"  Year {year} done in {elapsed:.1f}s ({len(acts)} acts, {args.workers} workers)"
+            f"  Year {year} done in {elapsed:.1f}s "
+            f"({len(acts)} acts, {args.workers} workers)"
         )
 
     print("\nAll done! Check download_errors.log for any errors.")
