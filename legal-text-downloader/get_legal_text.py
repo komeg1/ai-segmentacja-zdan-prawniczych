@@ -96,8 +96,14 @@ def extract_text_without_superscripts(page):
             continue
 
         if prev_bottom is not None and w["top"] > prev_bottom + median_size * 0.5:
-            lines.append(" ".join(current_line))
-            current_line = []
+            if current_line and current_line[-1].endswith("-"):
+                current_line[-1] = current_line[-1][:-1]
+                current_line.append(w["text"])
+            else:
+                lines.append(" ".join(current_line))
+                current_line = [w["text"]]
+            prev_bottom = w["bottom"]
+            continue
 
         current_line.append(w["text"])
         prev_bottom = w["bottom"]
@@ -143,8 +149,6 @@ def clean_page_text(text):
     if not text:
         return ""
 
-    text = re.sub(r"-\s*\n\s*", "", text)
-
     text = re.sub(
         r"DZIENNIK USTAW RZECZYPOSPOLITEJ POLSKIEJ\s*"
         r"Warszawa,\s*dnia\s*\d+\s*\w+\s*\d{4}\s*r\.\s*"
@@ -162,6 +166,10 @@ def clean_page_text(text):
     text = re.sub(r"^Dziennik Ustaw\s*Poz\.\s*\d+\s*$", "", text, flags=re.MULTILINE)
 
     text = re.sub(r"^Poz\.\s*\d+\s*$", "", text, flags=re.MULTILINE)
+
+    text = re.sub(r"-\s*\n\s*", "", text)
+
+    text = re.sub(r"-\s+([a-ząćęłńóśźż])", r"\1", text)
 
     text = re.sub(r"\n{3,}", "\n\n", text)
     text = re.sub(r"[ \t]{2,}", " ", text)
@@ -190,6 +198,8 @@ def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
                 else:
                     target_area = page.crop((0, 0, page.width, page.height * 0.92))
 
+                # Ekstrakcja tekstu z pominięciem indeksów górnych,
+                # z zachowaniem struktury linii i scalaniem wyrazów dzielonych
                 raw_clean = extract_text_without_superscripts(target_area)
                 cleaned = clean_page_text(raw_clean)
 
@@ -329,7 +339,7 @@ def main():
         acts = get_acts(year)
 
         if not acts:
-            print(f"  No acts found for {year}, skipping.")
+            print(f"  No actsFound for {year}, skipping.")
             continue
 
         year_dir = os.path.join(DATA_DIR, str(year))
