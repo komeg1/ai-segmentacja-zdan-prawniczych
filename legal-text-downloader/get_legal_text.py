@@ -74,7 +74,13 @@ def download_pdf(pdf_url, filename, retries=3):
 
 
 def extract_text_without_superscripts(page):
-    """Extract text, replacing tables with [TABELA] and skipping superscripts."""
+    """Extract text, replacing tables with [TABELA] and skipping superscripts.
+
+    Superscript detection uses two conditions (both must be true):
+    - is_small: font size < 75% of page median
+    - is_raised: bottom coordinate is above the previous word's bottom
+                 (local comparison, robust against pages with many short lines)
+    """
     tables = page.find_tables()
     table_bboxes = sorted([t.bbox for t in tables], key=lambda b: b[1])
 
@@ -85,9 +91,6 @@ def extract_text_without_superscripts(page):
     sizes = sorted([w["size"] for w in words])
     median_size = sizes[len(sizes) // 2]
 
-    bottoms = sorted([w["bottom"] for w in words])
-    median_bottom = bottoms[len(bottoms) // 2]
-
     def in_table(word):
         for i, (x0, top, x1, bottom) in enumerate(table_bboxes):
             if x0 <= word["x0"] <= x1 and top <= word["top"] <= bottom:
@@ -97,6 +100,7 @@ def extract_text_without_superscripts(page):
     lines = []
     current_line = []
     prev_bottom = None
+    prev_word_bottom = None  # bottom of last non-superscript word
     inserted_tables = set()
 
     for w in words:
@@ -111,11 +115,20 @@ def extract_text_without_superscripts(page):
                 prev_bottom = table_bboxes[table_idx][3]
             continue
 
-        if w["size"] < median_size * 0.75 and w["bottom"] < median_bottom - (
-            median_size * 0.3
-        ):
+        is_small = w["size"] < median_size * 0.75
+        # Local is_raised: word bottom is above the previous normal word's bottom
+        # threshold of 1pt avoids false positives from minor vertical jitter
+        is_raised = (
+            prev_word_bottom is not None and w["bottom"] < prev_word_bottom - 1.0
+        )
+
+        if is_small and is_raised:
             continue
 
+        # Track bottom of last kept word for next superscript check
+        prev_word_bottom = w["bottom"]
+
+        # New line if vertical position changed significantly
         if prev_bottom is not None and w["top"] > prev_bottom + median_size * 0.5:
             if current_line and current_line[-1].endswith("-"):
                 current_line[-1] = current_line[-1][:-1]
