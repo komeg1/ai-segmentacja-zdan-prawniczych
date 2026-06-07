@@ -1,6 +1,17 @@
 import json
 import os
 import re
+from pathlib import Path
+
+
+def find_clean_txt(act_id: str, text_files_directory: str | Path) -> str | None:
+    """Dopasowanie pliku po prefiksie act_YYYY_N_, nie po fragmencie ID."""
+    prefix = f"{act_id}_"
+    for local_file in os.listdir(text_files_directory):
+        if local_file.startswith(prefix) and local_file.endswith("_clean.txt"):
+            return os.path.join(text_files_directory, local_file)
+    return None
+
 
 def extract_raw_sentences(json_file_path, text_files_directory, output_json):
     # 1. Wczytanie danych z Label Studio
@@ -22,20 +33,15 @@ def extract_raw_sentences(json_file_path, text_files_directory, output_json):
             
         act_id = match.group(1)
         
-        # Szukamy pliku txt
-        local_file_path = None
-        for local_file in os.listdir(text_files_directory):
-            if act_id in local_file and local_file.endswith("_clean.txt"):
-                local_file_path = os.path.join(text_files_directory, local_file)
-                break
-                
+        local_file_path = find_clean_txt(act_id, text_files_directory)
         if not local_file_path:
             print(f"[!] Warning: Brakuje lokalnego pliku tekstowego z ID {act_id}.")
             continue
 
-        # 3. Wczytanie tekstu (z normalizacją końców linii, żeby offsety z przeglądarki pasowały do dysku!)
-        with open(local_file_path, "r", encoding="utf-8") as text_file:
-            raw_text = text_file.read().replace('\r\n', '\n')
+        # 3. Wczytanie tekstu bez zmiany końców linii — offsety z Label Studio
+        #    są liczone na oryginalnym tekście CRLF z pliku _clean.txt
+        with open(local_file_path, "r", encoding="utf-8", newline="") as text_file:
+            raw_text = text_file.read()
 
         # 4. Wycinanie zdań na podstawie offsetów
         annotations = task["annotations"][0]["result"]
@@ -58,6 +64,14 @@ def extract_raw_sentences(json_file_path, text_files_directory, output_json):
                 "text": extracted_text
             })
 
+        document_result["sentences"].sort(key=lambda s: s["start_offset"])
+        mismatches = sum(
+            1 for s in document_result["sentences"]
+            if raw_text[s["start_offset"]:s["end_offset"]] != s["text"]
+        )
+        if mismatches:
+            print(f"[!] Warning: {act_id} — {mismatches} zdan nie zgadza sie z plikiem zrodlowym.")
+
         extracted_data.append(document_result)
 
     # 5. Zapis do czytelnego pliku JSON
@@ -68,8 +82,8 @@ def extract_raw_sentences(json_file_path, text_files_directory, output_json):
 
 # --- Odpalenie ---
 if __name__ == "__main__":
-    LABEL_STUDIO_JSON = "../gold2.json" 
-    LOCAL_TXT_DIR = "../data/acts/2020/"
-    OUTPUT_JSON = "wyciete_zdania_raw.json" # <--- Tutaj znajdziesz swój wynik
+    LABEL_STUDIO_JSON = "../data/gold_2025.json"
+    LOCAL_TXT_DIR = "../../legal-text-downloader/data/acts/2025/"
+    OUTPUT_JSON = "../data/exported_sentences_ls/wyciete_zdania_raw_2025.json"
 
     extract_raw_sentences(LABEL_STUDIO_JSON, LOCAL_TXT_DIR, OUTPUT_JSON)

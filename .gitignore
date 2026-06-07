@@ -1,13 +1,44 @@
-**/__pycache__
-**/venv
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# IDE / OS
+.vscode/
+.idea/
+*.DS_Store
+
+# Logi i pliki diagnostyczne (generowane przy treningu/konwersji)
+*.log
+**/download_errors.log
+**/debug_spacy_alignment_*.json
+
+# Kopie zapasowe
+*_old.json
+
+# Stary/duplikatowy katalog data/ w korzeniu repo (~330 MB)
+/data/
+
+# Pelny korpus aktow prawnych (~380 MB, 8000+ plikow)
+# Do reprodukcji gold wystarczy acts_for_gold/ (~2 MB, 128 aktow)
+legal-text-downloader/data/acts/
+
+# Eksperymenty z duzymi modelami (~6.4 GB) — w repo zostaja raporty .md/.json
+spacy/spacy_config/experiments_gold/ws*/
+spacy/spacy_config/experiments_gold_final/width*/
+
+# Stary/duplikatowy katalog modeli
+spacy/models/
+
+# Checkpointy treningu (wystarczy model-best)
+**/model-last/
+
+# Opcjonalne duze pliki (odkomentuj jesli chcesz odtwarzac lokalnie):
+# spacy/spacy_config/train.spacy
+# spacy/spacy_config/dev.spacy
+
+# Misc
 **/raport.pdf
-**/*.DS_Store
-**/*.txt
-**/*.spacy
 **/.pdf
-*/downloader/
-**/.github
-**/data/acts
-**/data/spacy
-**/spacy_config/
-**/.vscode/
