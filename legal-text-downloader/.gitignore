@@ -1,2 +1,4 @@
 env
-data
+# Pelny korpus (~380 MB) — w repo jest tylko acts_for_gold/
+data/acts/
+data/**/*.pdf
