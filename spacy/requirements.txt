@@ -1,0 +1,5 @@
+spacy==3.8.14
+psutil>=5.9
+matplotlib>=3.8
+# Model wektorowy do treningu senter (sm wystarczy — lg/md daja ten sam wynik):
+# python -m spacy download pl_core_news_sm

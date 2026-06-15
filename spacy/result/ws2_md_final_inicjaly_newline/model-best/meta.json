@@ -1,0 +1,37 @@
+{
+  "lang":"pl",
+  "name":"pipeline",
+  "version":"0.0.0",
+  "spacy_version":">=3.8.14,<3.9.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_git_version":"0069cf9",
+  "vectors":{
+    "width":300,
+    "vectors":20000,
+    "keys":500000,
+    "name":"pl_vectors",
+    "mode":"default"
+  },
+  "labels":{
+
+  },
+  "pipeline":[
+    "senter"
+  ],
+  "components":[
+    "senter"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "sents_f":0.953001396,
+    "sents_p":0.9250225836,
+    "sents_r":0.9827255278,
+    "senter_loss":1098.103950843
+  }
+}
