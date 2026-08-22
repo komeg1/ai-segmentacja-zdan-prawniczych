@@ -61,7 +61,8 @@ def download_pdf(pdf_url, filename, retries=3):
         except requests.exceptions.ConnectionError:
             wait = 2**attempt
             print(
-                f"  [{ts()}] [{thread_name()}] Connection error, retrying in {wait}s... (attempt {attempt+1}/{retries})"
+                f"  [{ts()}] [{thread_name()}] Connection error, retrying in {wait}s..."
+                f" (attempt {attempt+1}/{retries})"
             )
             time.sleep(wait)
         except Exception as e:
@@ -72,46 +73,94 @@ def download_pdf(pdf_url, filename, retries=3):
     return False
 
 
-def clean_page_text(text):
-    if not text:
+def extract_text_without_superscripts(page):
+    """Extract text, replacing tables with [TABELA] and skipping superscripts.
+
+    Superscript detection uses two conditions (both must be true):
+    - is_small: font size < 75% of page median
+    - is_raised: bottom coordinate is above the previous word's bottom
+                 (local comparison, robust against pages with many short lines)
+    """
+    tables = page.find_tables()
+    table_bboxes = sorted([t.bbox for t in tables], key=lambda b: b[1])
+
+    words = page.extract_words(extra_attrs=["size", "top", "bottom"])
+    if not words:
         return ""
 
-    # 1. Join broken words (e.g. "roz- \nporządzenie" -> "rozporządzenie")
-    text = re.sub(r"-\s*\n\s*", "", text)
+    sizes = sorted([w["size"] for w in words])
+    median_size = sizes[len(sizes) // 2]
 
-    # 2. Remove journal headers ("Dziennik Ustaw" and "Poz.")
-    text = re.sub(r"^Dziennik Ustaw.*?\n", "", text, flags=re.MULTILINE)
-    text = re.sub(r"^Poz\.\s*\d+.*?\n", "", text, flags=re.MULTILINE)
+    def in_table(word):
+        for i, (x0, top, x1, bottom) in enumerate(table_bboxes):
+            if x0 <= word["x0"] <= x1 and top <= word["top"] <= bottom:
+                return i
+        return -1
 
-    # 3. Remove page numbers (e.g. – 2 –)
-    text = re.sub(r"^[–-]\s*\d+\s*[–-]\s*$", "", text, flags=re.MULTILINE)
+    lines = []
+    current_line = []
+    prev_bottom = None
+    prev_word_bottom = None  # bottom of last non-superscript word
+    inserted_tables = set()
 
-    # 4. Remove footnote markers stuck to words (e.g. 'ustawa2)' -> 'ustawa')
-    # Only after a letter, not after digits (to preserve legal numbering like "pkt 2)")
-    text = re.sub(r"(?<=[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ])\d+\)", "", text)
+    for w in words:
+        table_idx = in_table(w)
+        if table_idx >= 0:
+            if table_idx not in inserted_tables:
+                if current_line:
+                    lines.append(" ".join(current_line))
+                    current_line = []
+                lines.append("[TABELA]")
+                inserted_tables.add(table_idx)
+                prev_bottom = table_bboxes[table_idx][3]
+            continue
 
-    return text
+        is_small = w["size"] < median_size * 0.75
+        # Local is_raised: word bottom is above the previous normal word's bottom
+        # threshold of 1pt avoids false positives from minor vertical jitter
+        is_raised = (
+            prev_word_bottom is not None and w["bottom"] < prev_word_bottom - 1.0
+        )
+
+        if is_small and is_raised:
+            continue
+
+        # Track bottom of last kept word for next superscript check
+        prev_word_bottom = w["bottom"]
+
+        # New line if vertical position changed significantly
+        if prev_bottom is not None and w["top"] > prev_bottom + median_size * 0.5:
+            if current_line and current_line[-1].endswith("-"):
+                current_line[-1] = current_line[-1][:-1]
+                current_line.append(w["text"])
+            else:
+                lines.append(" ".join(current_line))
+                current_line = [w["text"]]
+            prev_bottom = w["bottom"]
+            continue
+
+        current_line.append(w["text"])
+        prev_bottom = w["bottom"]
+
+    if current_line:
+        lines.append(" ".join(current_line))
+
+    return "\n".join(lines)
 
 
 def detect_footnote_cut(page):
-    """Find where the footnotes start on the page."""
-
-    # 1. Try to find a horizontal line separator
+    """Return y-coordinate where footnotes start, or None."""
     for line in page.lines:
         width = line["x1"] - line["x0"]
-        y = line["top"]
-        if 40 < width < 250 and y > page.height * 0.70:
-            return y
+        if 40 < width < 250 and line["top"] > page.height * 0.70:
+            return line["top"]
 
-    # 2. If no line, look for smaller font size (footnotes are smaller than main text)
     words = page.extract_words(extra_attrs=["size"])
     if not words:
         return None
 
-    all_sizes = sorted([w["size"] for w in words])
-    if not all_sizes:
-        return None
-    median_size = all_sizes[len(all_sizes) // 2]
+    sizes = sorted([w["size"] for w in words])
+    median_size = sizes[len(sizes) // 2]
 
     for w in words:
         if (
@@ -122,6 +171,36 @@ def detect_footnote_cut(page):
             return w["top"]
 
     return None
+
+
+def clean_page_text(text):
+    """Remove Dz.U. headers and separators from a single page."""
+    if not text:
+        return ""
+
+    text = re.sub(
+        r"DZIENNIK USTAW RZECZYPOSPOLITEJ POLSKIEJ\s*"
+        r"Warszawa,\s*dnia\s*\d+\s*\w+\s*\d{4}\s*r\.\s*Poz\.\s*\d+\s*",
+        "",
+        text,
+    )
+    text = re.sub(r"Dziennik Ustaw\s*[–-]\s*\d+\s*[–-]\s*Poz\.\s*\d+\s*", "", text)
+    text = re.sub(r"^Dziennik Ustaw\s*Poz\.\s*\d+\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"^Poz\.\s*\d+\s*$", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    text = re.sub(r"[ \t]{2,}", " ", text)
+
+    return text.strip()
+
+
+def join_and_fix_hyphens(pages):
+    """Join pages and merge hyphenated words split across lines or pages."""
+    text = "\n".join(pages)
+    # hyphen at end of line followed by lowercase continuation
+    text = re.sub(r"-\s*\n\s*([a-ząćęłńóśźż])", r"\1", text)
+    # hyphen with space in same line (pdfplumber column artefact)
+    text = re.sub(r"-\s+([a-ząćęłńóśźż])", r"\1", text)
+    return text
 
 
 def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
@@ -138,13 +217,13 @@ def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
                         raw_pages.append(raw_text)
 
                 cut_y = detect_footnote_cut(page)
+                target_area = page.crop(
+                    (0, 0, page.width, cut_y - 2 if cut_y else page.height * 0.95)
+                )
 
-                if cut_y:
-                    target_area = page.crop((0, 0, page.width, cut_y - 2))
-                else:
-                    target_area = page.crop((0, 0, page.width, page.height * 0.92))
+                raw_clean = extract_text_without_superscripts(target_area)
+                cleaned = clean_page_text(raw_clean)
 
-                cleaned = clean_page_text(target_area.extract_text())
                 if cleaned:
                     clean_pages.append(cleaned)
 
@@ -153,7 +232,7 @@ def process_pdf(pdf_path, txt_clean_path, txt_raw_path, save_raw=False):
                 f.write("\n".join(raw_pages))
 
         if clean_pages:
-            final_clean = "\n".join(clean_pages)
+            final_clean = join_and_fix_hyphens(clean_pages)
             final_clean = re.sub(r"\n\s*\n+", "\n\n", final_clean).strip()
             with open(txt_clean_path, "w", encoding="utf-8") as f:
                 f.write(final_clean)
@@ -303,7 +382,8 @@ def main():
 
         elapsed = time.time() - t_start
         print(
-            f"  Year {year} done in {elapsed:.1f}s ({len(acts)} acts, {args.workers} workers)"
+            f"  Year {year} done in {elapsed:.1f}s "
+            f"({len(acts)} acts, {args.workers} workers)"
         )
 
     print("\nAll done! Check download_errors.log for any errors.")
