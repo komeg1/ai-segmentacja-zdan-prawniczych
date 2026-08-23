@@ -7,9 +7,9 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 MODEL_PATH = ""
 FILES = [
-    "data/acts/2026/act_2026_732_clean.txt",
-    "data/acts/2026/act_2026_656_clean.txt",
-    "data/acts/2026/act_2026_720_clean.txt",
+    "../legal-text-downloader/data/acts/2026/act_2026_732_clean.txt",
+    "../legal-text-downloader/data/acts/2026/act_2026_656_clean.txt",
+    "../legal-text-downloader/data/acts/2026/act_2026_720_clean.txt",
 ]
 
 WINDOW_SIZE = 350
