@@ -7,9 +7,6 @@ import regex as re
 
 nltk.download("punkt", quiet=True)
 
-
-# ── Stałe ─────────────────────────────────────────────────────────────────────
-
 PROTECTED_TERMS = {
     "art",
     "ust",
@@ -466,7 +463,7 @@ def process_files(files: list, window_size: int = 10) -> list:
                     )
 
         except Exception as e:
-            print(f"Błąd w pliku {file_path}: {e}")
+            print(f"Error processing file {file_path}: {e}")
 
     return all_samples
 
@@ -476,30 +473,28 @@ def print_stats(name: str, data: list) -> None:
     total_ends = sum(sum(s["sbd_labels"]) for s in data)
     ratio = total_ends / total_tokens * 100 if total_tokens else 0
     print(
-        f"  {name}: {len(data):,} okien | {total_tokens:,} tokenów | "
-        f"{total_ends:,} granic zdań ({ratio:.1f}%)"
+        f"  {name}: {len(data):,} windows | {total_tokens:,} tokens | "
+        f"{total_ends:,} sentence boundaries ({ratio:.1f}%)"
     )
 
 
 def main():
-    BASE_DIR = "."
-    SAVE_PATH = "data/final_dataset_v17"
+    DATA_PATH = "../legal-text-downloader/data"
+    SAVE_PATH = "data/dataset"
 
     train_paths = []
     for year in range(2015, 2025):
-        train_paths += glob.glob(
-            os.path.join(BASE_DIR, f"data/acts/{year}/*_clean.txt")
-        )
+        train_paths += glob.glob(os.path.join(DATA_PATH, f"acts/{year}/*_clean.txt"))
 
-    val_paths = glob.glob(os.path.join(BASE_DIR, "data/acts/2025/*_clean.txt"))
+    val_paths = glob.glob(os.path.join(DATA_PATH, "acts/2025/*_clean.txt"))
 
-    print(f"Znaleziono plików: train={len(train_paths)}, val={len(val_paths)}")
-    print("Generowanie Datasetu V17..")
+    print(f"Files found: train={len(train_paths)}, val={len(val_paths)}")
+    print("Generating Dataset...")
 
     train_data = process_files(train_paths, window_size=10)
     val_data = process_files(val_paths, window_size=10)
 
-    print("\nStatystyki:")
+    print("\nStatistics:")
     print_stats("Train", train_data)
     print_stats("Val", val_data)
 
@@ -513,7 +508,7 @@ def main():
     os.makedirs(SAVE_PATH, exist_ok=True)
     dataset_dict.save_to_disk(SAVE_PATH)
 
-    print(f"\nDataset V17 zapisany w: {os.path.abspath(SAVE_PATH)}")
+    print(f"\nDataset saved to: {os.path.abspath(SAVE_PATH)}")
 
 
 if __name__ == "__main__":
